@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_game/pages/detail_page.dart';
 
 import '../data.dart';
 import '../widgets/gradient_background.dart';
@@ -117,25 +118,35 @@ Widget _topBar() {
   );
 }
 
-Widget _gameList(BuildContext _context, List<GameData> games) {
-  print(games[0].imageURL);
+Widget _gameList(BuildContext _context, List<GameData> _games) {
   return SizedBox(
     height: MediaQuery.of(_context).size.height * 0.18,
     width: MediaQuery.of(_context).size.width,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: games.length,
+      itemCount: _games.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: EdgeInsets.only(right: 10),
-          child: Container(
-            width: MediaQuery.of(_context).size.width * .30,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(games[index].imageURL),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(
+                          image: _games[index].imageURL,
+                          title: _games[index].name,
+                        )));
+          },
+          child: Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Container(
+              width: MediaQuery.of(_context).size.width * .30,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(_games[index].imageURL),
+                ),
+                borderRadius: BorderRadius.circular(5),
               ),
-              borderRadius: BorderRadius.circular(5),
             ),
           ),
         );
