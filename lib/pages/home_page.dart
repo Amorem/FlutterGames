@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_game/pages/detail_page.dart';
 
 import '../data.dart';
 import '../widgets/gradient_background.dart';
+import '../widgets/topbar.dart';
+import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -21,14 +22,7 @@ class HomePage extends StatelessWidget {
             child: gradientBackground(
                 Colors.transparent, Color.fromRGBO(35, 45, 59, 1)),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-                MediaQuery.of(context).size.height * 0.025,
-                MediaQuery.of(context).size.height * 0.05,
-                MediaQuery.of(context).size.height * 0.025,
-                MediaQuery.of(context).size.height * 0.001),
-            child: _infoColumn(context),
-          ),
+          _infoColumn(context),
         ],
       ),
     );
@@ -58,7 +52,7 @@ class HomePage extends StatelessWidget {
   Widget _infoColumn(BuildContext _context) {
     return Column(
       children: <Widget>[
-        _topBar(),
+        topBar(_context),
         SizedBox(
           height: MediaQuery.of(_context).size.height * 0.25,
         ),
@@ -82,40 +76,6 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
-}
-
-Widget _topBar() {
-  return Container(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          Icons.menu,
-          color: Colors.white,
-          size: 25,
-        ),
-        Row(
-          children: <Widget>[
-            Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 25,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                Icons.notifications_none,
-                color: Colors.white,
-                size: 25,
-              ),
-            ),
-          ],
-        )
-      ],
-    ),
-  );
 }
 
 Widget _gameList(BuildContext _context, List<GameData> _games) {
