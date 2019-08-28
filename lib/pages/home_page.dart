@@ -16,17 +16,18 @@ class HomePage extends StatelessWidget {
           ),
           Padding(
             padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * .35),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * .30),
             child: gradientBackground(
                 Colors.transparent, Color.fromRGBO(35, 45, 59, 1)),
           ),
           Padding(
-              padding: EdgeInsets.fromLTRB(
-                  MediaQuery.of(context).size.height * 0.025,
-                  MediaQuery.of(context).size.height * 0.05,
-                  MediaQuery.of(context).size.height * 0.025,
-                  0),
-              child: _infoColumn()),
+            padding: EdgeInsets.fromLTRB(
+                MediaQuery.of(context).size.height * 0.025,
+                MediaQuery.of(context).size.height * 0.05,
+                MediaQuery.of(context).size.height * 0.025,
+                MediaQuery.of(context).size.height * 0.001),
+            child: _infoColumn(context),
+          ),
         ],
       ),
     );
@@ -53,10 +54,30 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _infoColumn() {
+  Widget _infoColumn(BuildContext _context) {
     return Column(
       children: <Widget>[
         _topBar(),
+        SizedBox(
+          height: MediaQuery.of(_context).size.height * 0.25,
+        ),
+        Text(
+          'Assasin\' Creed Odyssey',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 35.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(height: MediaQuery.of(_context).size.height * 0.03),
+        _gameList(_context, games),
+        Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(_context).size.height * 0.02,
+              bottom: MediaQuery.of(_context).size.height * 0.02),
+          child: _gameBanner(_context),
+        ),
+        _gameList(_context, games_2),
       ],
     );
   }
@@ -92,6 +113,45 @@ Widget _topBar() {
           ],
         )
       ],
+    ),
+  );
+}
+
+Widget _gameList(BuildContext _context, List<GameData> games) {
+  print(games[0].imageURL);
+  return SizedBox(
+    height: MediaQuery.of(_context).size.height * 0.18,
+    width: MediaQuery.of(_context).size.width,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: games.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.only(right: 10),
+          child: Container(
+            width: MediaQuery.of(_context).size.width * .30,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(games[index].imageURL),
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}
+
+Widget _gameBanner(BuildContext _context) {
+  return Container(
+    height: MediaQuery.of(_context).size.height * 0.15,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: NetworkImage(featuredGames[1].imageURL),
+      ),
     ),
   );
 }
