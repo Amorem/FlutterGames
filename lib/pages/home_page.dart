@@ -20,6 +20,13 @@ class HomePage extends StatelessWidget {
             child: gradientBackground(
                 Colors.transparent, Color.fromRGBO(35, 45, 59, 1)),
           ),
+          Padding(
+              padding: EdgeInsets.fromLTRB(
+                  MediaQuery.of(context).size.height * 0.025,
+                  MediaQuery.of(context).size.height * 0.05,
+                  MediaQuery.of(context).size.height * 0.025,
+                  0),
+              child: _infoColumn()),
         ],
       ),
     );
@@ -45,4 +52,46 @@ class HomePage extends StatelessWidget {
       },
     );
   }
+
+  Widget _infoColumn() {
+    return Column(
+      children: <Widget>[
+        _topBar(),
+      ],
+    );
+  }
+}
+
+Widget _topBar() {
+  return Container(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.menu,
+          color: Colors.white,
+          size: 25,
+        ),
+        Row(
+          children: <Widget>[
+            Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 25,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(
+                Icons.notifications_none,
+                color: Colors.white,
+                size: 25,
+              ),
+            ),
+          ],
+        )
+      ],
+    ),
+  );
 }
